@@ -2,7 +2,7 @@
 #define N
 
 
-#include <timing.h>
+#include "timing.h"
 #include <QString>
 #include <QFile>
 
@@ -10,7 +10,7 @@ enum Statut{attente,cours,terminee};
 
 class Note{
   protected:
-    QString id;
+    int id;
     QString titre;
     Date d_creat;
     Date d_modif;
@@ -20,11 +20,12 @@ class Note{
     // constructeurs et destructeurs ici pour que le Manager gère
 
   public:
-    Note(const QString& id,const QString& titre, const Date& date_cr, const Date& date_end):identifier(id),title(titre),date_creation(date_cr),date_last_modif(date_l){}
-    QString getTitre()const{return title;}
-    QString getId()const{return identifier;}
-    Date getCreat()const{return date_creation;}
-    Date getDModif()const{return date_last_modif;}
+    Note(const int& id,const QString& titre, const Date& date_cr, const Date& date_end):
+      id(id),titre(titre),d_creat(date_cr),d_modif(date_end){}
+    QString getTitre()const{return titre;}
+    int getId()const{return id;}
+    Date getCreat()const{return d_creat;}
+    Date getDModif()const{return d_modif;}
     void setTitle(const QString& t);
 };
 
@@ -35,18 +36,20 @@ class Tache : public Note{
     Date echeance;
     Statut statut;
   public:
-    Tache(const QString& id,const QString& titre, const Date& date_cr, const Date& date_l, const QString& act, int prior, const Date& d_end, type_Status st):Note(id,titre,date_cr,date_l),action(act),priority(prior),date_echeance(d_end),status(st){};
+    Tache(const int& id,const QString& titre, const Date& date_cr, const Date& date_l, const QString& act, int p, const Date& d_end, Statut st):
+      Note(id,titre,date_cr,date_l),action(act),priorite(p),echeance(d_end),statut(st){};
     QString getAction() const{return action;};
-    int getPriority() const{return priority;};
-    Date getDate_echeance() const{return date_echeance;};
-    QString getStatus() const{return status;};
+    int getPriority() const{return priorite;};
+    Date getDate_echeance() const{return echeance;};
+    Statut getStatut() const{return statut;};
 };
 
 class Article : public Note{
   private:
     QString texte;
   public:
-    Article(const QString& id,const QString& titre, const Date& date_cr, const Date& date_l, const QString& txt):Note(id,titre,date_cr,date_l),text(txt){};
+    Article(const int& id,const QString& titre, const Date& date_cr, const Date& date_l, const QString& txt):
+      Note(id,titre,date_cr,date_l),texte(txt){};
     QString getTexte()const{return texte;};
     void setText(const QString& txt);
 };
@@ -56,8 +59,7 @@ class Multimedia : public Note{
     QString desc;
     QFile fichier;
   public:
-    QString getDesc(){return desc;};
-    QFile getFichier(){return fichier;};
+    QString getDesc()const{return desc;};
 };
 
 class Relation{
