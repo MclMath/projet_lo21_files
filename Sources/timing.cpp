@@ -2,9 +2,7 @@
 #include "timing.h"
 #include <ctime>
 
-using namespace TIME;
-
-std::ostream& operator<<(std::ostream& f, const Date& x){ x.afficher(f); return f;} 
+std::ostream& operator<<(std::ostream& f, const Date& x){ x.afficher(f); return f;}
 std::ostream& operator<<(std::ostream& f, const Duree & d){ d.afficher(f); return f; }
 std::ostream& operator<<(std::ostream& f, const Horaire & h){ h.afficher(f); return f; }
 std::ostream& operator<<(std::ostream& f, const Periode & p){ p.afficher(f); return f; }
@@ -12,7 +10,7 @@ std::ostream& operator<<(std::ostream& f, const Periode & p){ p.afficher(f); ret
 
 void Date::setDate(unsigned short int j, unsigned short int m, unsigned int a){
 	// initialisation de la date, renvoie vrai si la date est valide
-	if (a>=0&&a<=3000) annee=a; else throw TimeException("erreur: annee invalide");
+	if (a<=3000) annee=a; else throw TimeException("erreur: annee invalide");
 	if (m>=1&&m<=12) mois=m; else throw TimeException("erreur: mois invalide");
 	switch(m){
 	case 1: case 3: case 5: case 7: case 8: case 10: case 12: if (j>=1 && j<=31) jour=j; else throw TimeException("erreur: jour invalide"); break;
@@ -79,7 +77,7 @@ bool Horaire::operator<(const Horaire& h) const{
 	return true;
 }
 
-Periode::Periode(unsigned int j, unsigned int m, unsigned int a): 
+Periode::Periode(unsigned int j, unsigned int m, unsigned int a):
 		   nb_jours(j), nb_mois(m), nb_annees(a) {
 	if (j>364) throw TimeException("erreur: initialisation periode invalide");
 	if (m>11) throw TimeException("erreur: initialisation periode invalide");
@@ -114,7 +112,7 @@ void Intervalle::afficher(std::ostream& f) const {
 	f<<"["<<debut<<" ; "<<fin<<"]";
 }
 
-std::istream& operator>>(std::istream& flot, TIME::Date& date){
+std::istream& operator>>(std::istream& flot, Date& date){
 	unsigned int short j,m,a;
 	bool ok=true;
 	flot>>j;
@@ -144,7 +142,7 @@ std::istream& operator>>(std::istream& flot, TIME::Date& date){
 	return flot;
 }
 
-std::istream& operator>>(std::istream& flot, TIME::Duree& duree){
+std::istream& operator>>(std::istream& flot, Duree& duree){
 	unsigned int h,m;
 	bool ok=true;
 	flot>>h;
