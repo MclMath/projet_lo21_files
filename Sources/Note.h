@@ -1,5 +1,5 @@
-#ifndef N
-#define N
+#ifndef NOTE_H
+#define NOTE_H
 
 
 #include "timing.h"
