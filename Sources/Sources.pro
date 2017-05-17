@@ -10,5 +10,5 @@ QMAKE_CXXFLAGS = -std=c++11 -lsqlite3
 QMAKE_LFLAGS = -std=c++11 -lsqlite3
 
 # Input
-HEADERS += connexion.h Note.h timing.h
-SOURCES += connexion.cpp main.cpp Note.cpp timing.cpp
+HEADERS += bdd.h Note.h timing.h
+SOURCES += bdd.cpp main.cpp Note.cpp timing.cpp
